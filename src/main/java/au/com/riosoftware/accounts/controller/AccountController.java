@@ -20,7 +20,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public Mono<Account> createAccount(@RequestBody Mono<CreateAccountRequest> accountRequest) {
+    public Mono<Account> createAccount(@RequestBody final Mono<CreateAccountRequest> accountRequest) {
         return accountService.createAccount(accountRequest);
     }
 
