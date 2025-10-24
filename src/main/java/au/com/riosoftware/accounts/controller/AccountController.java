@@ -1,0 +1,32 @@
+package au.com.riosoftware.accounts.controller;
+
+import au.com.riosoftware.accounts.controller.model.CreateAccountRequest;
+import au.com.riosoftware.accounts.model.Account;
+import au.com.riosoftware.accounts.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    private final AccountService accountService;
+
+    @Autowired
+    public AccountController(final AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @PostMapping
+    public Mono<Account> createAccount(@RequestBody Mono<CreateAccountRequest> accountRequest) {
+        return accountService.createAccount(accountRequest);
+    }
+
+    @GetMapping
+    public Flux<Account> findAll() {
+        return accountService.findAll();
+    }
+
+}

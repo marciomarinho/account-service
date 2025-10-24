@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16.10-alpine3.22
+    environment:
+      - 'POSTGRES_DB=accounts'
+      - 'POSTGRES_PASSWORD=mypassword'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - "5432:5432"
+
+#services:
+#  postgres:
+#    image: postgres:16.10-alpine3.22 # Use a specific version and a lightweight image
+#    restart: always
+#    container_name: my-postgres-db # Give your container a meaningful name
+#    ports:
+#      - "5432:5432" # Map host port 5432 to container port 5432
+#    environment:
+#      POSTGRES_DB: accounts # Name of the database to create
+#      POSTGRES_USER: myuser # Username for the database
+#      POSTGRES_PASSWORD: mypassword # Password for the database user
+#    volumes:
+##      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - postgres_data:/var/lib/postgresql/data # Persistent storage for data
+#
+#volumes:
+#  postgres_data: # Define the named volume for data persistence

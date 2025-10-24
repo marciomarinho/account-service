@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: account
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/accounts?schema=public
+    username: myuser
+    password: mypassword
+  sql:
+    init:
+      mode: never 
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAM: DEBUG
+
+flyway:
+  url: jdbc:postgresql://localhost:5432/accounts?schema=public
+  username: myuser
+  password: mypassword
+  enabled: true # Enable FlywayN
+  baseline-on-migrate: true # Optional: Baselines an existing database to the current version
+  locations: classpath:db/migration # Location of your migration scripts
+  # Other optional properties:
+  # schemas: myschema # Specify a schema to manage
+  # validate-on-migrate: true # Validate checksums of existing migrations
+  # clean-disabled: true # Disable the clean operation for safety
