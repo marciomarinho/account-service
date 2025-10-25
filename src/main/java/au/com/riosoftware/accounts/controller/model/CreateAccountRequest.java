@@ -22,5 +22,5 @@ public record CreateAccountRequest(
         @Pattern(regexp = "USD|EUR|GBP|AUD|CAD|JPY",
                 message = "Currency must be USD, EUR, GBP, AUD, CAD, or JPY")
         String currency
-) {
-}
+        
+) {}
