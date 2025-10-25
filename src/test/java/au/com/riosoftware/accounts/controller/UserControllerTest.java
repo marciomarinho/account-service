@@ -1,36 +1,30 @@
-package au.com.riosoftware.accounts.service;
+package au.com.riosoftware.accounts.controller;
 
 import au.com.riosoftware.accounts.model.User;
-import au.com.riosoftware.accounts.repository.UserRepository;
+import au.com.riosoftware.accounts.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-//TODO: Trying another style...
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserControllerTest {
 
-    @Mock
-    private UserRepository userRepository;
-
-    @InjectMocks
     private UserService userService;
-
+    private UserController userController;
     private User testUser1;
     private User testUser2;
 
     @BeforeEach
     void setUp() {
+        userService = mock(UserService.class);
+        userController = new UserController(userService);
+
         testUser1 = new User(
             "test1@example.com",
             "testuser1",
@@ -55,24 +49,32 @@ class UserServiceTest {
     }
 
     @Test
-    void findAll_shouldReturnAllUsers() {
+    void testFindAllUsers() {
 
-        when(userRepository.findAll())
+        when(userService.findAll())
             .thenReturn(Flux.just(testUser1, testUser2));
 
-        StepVerifier.create(userService.findAll())
+    
+        Flux<User> result = userController.findAll();
+
+   
+        StepVerifier.create(result)
             .expectNext(testUser1)
             .expectNext(testUser2)
             .verifyComplete();
     }
 
     @Test
-    void findAll_whenNoUsers_shouldReturnEmpty() {
-
-        when(userRepository.findAll())
+    void testFindAllUsers_whenNoUsers() {
+        
+        when(userService.findAll())
             .thenReturn(Flux.empty());
 
-        StepVerifier.create(userService.findAll())
+     
+        Flux<User> result = userController.findAll();
+
+     
+        StepVerifier.create(result)
             .expectNextCount(0)
             .verifyComplete();
     }
