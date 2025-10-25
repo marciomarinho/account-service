@@ -5,11 +5,6 @@ import au.com.riosoftware.accounts.model.Account;
 import au.com.riosoftware.accounts.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -53,7 +48,7 @@ class AccountControllerTest {
         when(accountService.createAccount(any()))
                 .thenReturn(Mono.just(expectedAccount));
 
-        Mono<Account> result = accountController.createAccount(Mono.just(request));
+        Mono<Account> result = accountController.createAccount(request);
         StepVerifier.create(result)
                 .expectNext(expectedAccount)
                 .verifyComplete();

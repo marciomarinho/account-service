@@ -3,6 +3,7 @@ package au.com.riosoftware.accounts.controller;
 import au.com.riosoftware.accounts.controller.model.CreateAccountRequest;
 import au.com.riosoftware.accounts.model.Account;
 import au.com.riosoftware.accounts.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -20,7 +21,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public Mono<Account> createAccount(@RequestBody final Mono<CreateAccountRequest> accountRequest) {
+    public Mono<Account> createAccount(@Valid @RequestBody final CreateAccountRequest accountRequest) {
         return accountService.createAccount(accountRequest);
     }
 

@@ -22,14 +22,12 @@ public class AccountService {
     }
 
     @Transactional
-    public Mono<Account> createAccount(final Mono<CreateAccountRequest> request) {
-        return fromRequest(request).flatMap(accountRepository::save);
+    public Mono<Account> createAccount(final CreateAccountRequest request) {
+        return accountRepository.save(fromRequest(request));
     }
 
-    public Mono<Account> fromRequest(final Mono<CreateAccountRequest> request) {
-        return request.map(req ->
-                new Account(req.userId(), UUID.randomUUID().toString(), req.accountType())
-        );
+    public Account fromRequest(final CreateAccountRequest req) {
+        return new Account(req.userId(), UUID.randomUUID().toString(), req.accountType());
     }
 
     public Flux<Account> findAll() {
