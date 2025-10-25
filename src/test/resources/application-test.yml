@@ -1,20 +1,6 @@
 spring:
-  r2dbc:
-    url: r2dbc:tc:postgresql:///testdb?TC_IMAGE_TAG=13-alpine
-    username: test
-    password: test
-    pool:
-      initial-size: 1
-      max-size: 2
-
   flyway:
     enabled: true
-    url: jdbc:tc:postgresql:13-alpine:///testdb
-    user: test
-    password: test
-
-  webflux:
-    base-path: /
 
 logging:
   level:
@@ -23,4 +9,35 @@ logging:
     au.com.riosoftware.accounts: DEBUG
 
 server:
-  port: 0  # Use random port for tests
+  port: 0  # Random port for tests
+
+#spring:
+#  docker:
+#    compose:
+#      skip:
+#        in-tests: false
+#  r2dbc:
+#    url: r2dbc:tc:postgresql:///testdb?TC_IMAGE_TAG=13-alpine
+#    username: test
+#    password: test
+#    pool:
+#      initial-size: 1
+#      max-size: 2
+#
+#  flyway:
+#    enabled: true
+#    url: jdbc:tc:postgresql:13-alpine:///testdb
+#    user: test
+#    password: test
+#
+#  webflux:
+#    base-path: /
+#
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework: INFO
+#    au.com.riosoftware.accounts: DEBUG
+#
+#server:
+#  port: 0  # Use random port for tests
