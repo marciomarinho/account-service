@@ -2,7 +2,7 @@
 
 A Spring Boot WebFlux-based microservice for managing bank accounts and users in a reactive, non-blocking manner.
 
-## 📋 Overview
+## Overview
 
 This project demonstrates a modern, reactive banking account service with the following features:
 
@@ -12,7 +12,7 @@ This project demonstrates a modern, reactive banking account service with the fo
 - **Containerized**: Ready for Docker and Kubernetes deployment
 - **Comprehensive Testing**: Includes unit and integration tests
 
-## 🚀 Features
+## Features
 
 ### Account Management
 - Create new bank accounts
@@ -32,7 +32,7 @@ This project demonstrates a modern, reactive banking account service with the fo
 - Comprehensive API documentation (coming soon)
 - Health checks and metrics
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Java 25** - Programming language
 - **Spring Boot 3.x** - Application framework
@@ -44,14 +44,14 @@ This project demonstrates a modern, reactive banking account service with the fo
 - **Docker** - Containerization
 - **Maven** - Build tool
 
-## 📦 Prerequisites
+## Prerequisites
 
 - Java 25 or later
 - Maven 3.6.3 or later
 - Docker and Docker Compose (for containerized deployment)
 - PostgreSQL 13+ (for local development)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Local Development
 
@@ -87,7 +87,7 @@ This project demonstrates a modern, reactive banking account service with the fo
 - `GET /accounts/{id}` - Get account by ID (coming soon)
 - `POST /accounts` - Create a new account (coming soon)
 
-## 🧪 Testing
+## Testing
 
 Run unit tests:
 ```bash
@@ -99,7 +99,7 @@ Run integration tests:
 mvn verify
 ```
 
-## 🏗 Project Structure
+## Project Structure
 
 ```
 src/
@@ -118,7 +118,7 @@ src/
 └── test/                       # Test classes
 ```
 
-## 📝 Code Style
+## Code Style
 
 This project follows the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) with some modifications:
 
@@ -126,7 +126,7 @@ This project follows the [Google Java Style Guide](https://google.github.io/styl
 - 120 character line length
 - K&R style braces
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -134,17 +134,17 @@ This project follows the [Google Java Style Guide](https://google.github.io/styl
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Spring Framework](https://spring.io/)
 - [Project Reactor](https://projectreactor.io/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [R2DBC](https://r2dbc.io/)
 
-## 📬 Contact
+## Contact
 
 Project Link: [https://github.com/yourusername/account-service](https://github.com/yourusername/account-service)
