@@ -50,7 +50,6 @@ public class User {
         this.isActive = true;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }

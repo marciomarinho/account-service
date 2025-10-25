@@ -22,7 +22,7 @@ public class Account {
     private String accountNumber;
 
     @Column("account_type")
-    private String accountType; // CHECKING, SAVINGS, etc.
+    private String accountType; // CHECKING, SAVINGS, etc. Could be an enum.
 
     @Column("balance")
     private BigDecimal balance;
@@ -41,7 +41,6 @@ public class Account {
     @Column("updated_at")
     private LocalDateTime updatedAt;
 
-    // Constructors
     public Account() {
         this.balance = new BigDecimal("0.0");
         this.currency = "USD";
@@ -57,7 +56,6 @@ public class Account {
         this.status = "ACTIVE";
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -129,6 +127,4 @@ public class Account {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
 }
