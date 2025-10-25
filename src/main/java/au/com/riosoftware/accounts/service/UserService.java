@@ -5,6 +5,7 @@ import au.com.riosoftware.accounts.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class UserService {
@@ -20,4 +21,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Mono<User> findById(String id) {
+        return userRepository.findById(id);
+    }
 }

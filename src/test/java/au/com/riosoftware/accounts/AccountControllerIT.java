@@ -35,7 +35,6 @@ class AccountControllerIT {
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
-        // R2DBC configuration
         registry.add("spring.r2dbc.url", () ->
                 String.format("r2dbc:postgresql://%s:%d/%s",
                         postgres.getHost(),
@@ -44,7 +43,6 @@ class AccountControllerIT {
         registry.add("spring.r2dbc.username", postgres::getUsername);
         registry.add("spring.r2dbc.password", postgres::getPassword);
 
-        // Flyway configuration
         registry.add("spring.flyway.url", postgres::getJdbcUrl);
         registry.add("spring.flyway.user", postgres::getUsername);
         registry.add("spring.flyway.password", postgres::getPassword);
@@ -61,7 +59,6 @@ class AccountControllerIT {
 
     @BeforeEach
     void setUp() {
-        // Clean up before each test (order matters due to FK constraint)
         accountRepository.deleteAll().block();
         userRepository.deleteAll().block();
     }
@@ -79,12 +76,7 @@ class AccountControllerIT {
 
     @Test
     void createAccount_shouldCreateNewAccount() {
-        // Given - Create a user first
         String userId = createTestUser();
-
-        System.out.println("*****************************");
-        System.out.println(userId);
-        System.out.println("*****************************");
 
         CreateAccountRequest request = new CreateAccountRequest(
                 userId,
@@ -92,7 +84,6 @@ class AccountControllerIT {
                 "USD"
         );
 
-        // When & Then
         webTestClient.post()
                 .uri("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -111,7 +102,6 @@ class AccountControllerIT {
 //                .jsonPath("$.createdAt").isNotEmpty()
 //                .jsonPath("$.updatedAt").isNotEmpty();
 
-        // Verify the account was saved in the database
         accountRepository.findAll()
                 .as(StepVerifier::create)
                 .assertNext(account -> {
@@ -130,13 +120,11 @@ class AccountControllerIT {
 
     @Test
     void createAccount_withMultipleAccounts_shouldCreateAll() {
-        // Given - Create a user first
         String userId = createTestUser();
 
         CreateAccountRequest checkingRequest = new CreateAccountRequest(userId, "CHECKING", "USD");
         CreateAccountRequest savingsRequest = new CreateAccountRequest(userId, "SAVINGS", "EUR");
 
-        // When - Create first account
         webTestClient.post()
                 .uri("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +132,6 @@ class AccountControllerIT {
                 .exchange()
                 .expectStatus().isCreated();
 
-        // When - Create second account
         webTestClient.post()
                 .uri("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -152,7 +139,6 @@ class AccountControllerIT {
                 .exchange()
                 .expectStatus().isCreated();
 
-        // Then - Verify both accounts exist
         accountRepository.findAll()
                 .as(StepVerifier::create)
                 .expectNextCount(2)
@@ -161,7 +147,6 @@ class AccountControllerIT {
 
     @Test
     void createAccount_withInvalidData_shouldReturnBadRequest() {
-        // Given - invalid request with missing required fields
         CreateAccountRequest invalidRequest = new CreateAccountRequest(
                 null,  // userId is required
                 "",    // accountType is required
@@ -179,14 +164,12 @@ class AccountControllerIT {
 
     @Test
     void createAccount_withInvalidAccountType_shouldReturnBadRequest() {
-        // Given - invalid account type
         CreateAccountRequest request = new CreateAccountRequest(
                 UUID.randomUUID().toString(),
                 "INVALID_TYPE",  // Not in the allowed types
                 "USD"
         );
 
-        // When & Then
         webTestClient.post()
                 .uri("/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -197,7 +180,6 @@ class AccountControllerIT {
 
     @Test
     void createAccount_withInvalidCurrency_shouldReturnBadRequest() {
-        // Given - invalid currency
         CreateAccountRequest request = new CreateAccountRequest(
                 UUID.randomUUID().toString(),
                 "CHECKING",
@@ -215,7 +197,6 @@ class AccountControllerIT {
 
     @Test
     void getAllAccounts_shouldReturnAllAccounts() {
-        // Given - Create a user and accounts
         String userId = createTestUser();
         CreateAccountRequest request1 = new CreateAccountRequest(userId, "CHECKING", "USD");
         CreateAccountRequest request2 = new CreateAccountRequest(userId, "SAVINGS", "EUR");
@@ -225,7 +206,6 @@ class AccountControllerIT {
         webTestClient.post().uri("/accounts")
                 .bodyValue(request2).exchange().expectStatus().isCreated();
 
-        // When & Then
         webTestClient.get()
                 .uri("/accounts")
                 .exchange()
@@ -237,21 +217,17 @@ class AccountControllerIT {
 
     @Test
     void getAccountById_shouldReturnAccount() {
-        // Given - Create a user and an account
         String userId = createTestUser();
         CreateAccountRequest request = new CreateAccountRequest(userId, "CHECKING", "USD");
 
-        // Create account
         webTestClient.post()
                 .uri("/accounts")
                 .bodyValue(request)
                 .exchange()
                 .expectStatus().isCreated();
 
-        // Get the created account ID from repository
         String accountId = accountRepository.findAll().blockFirst().getId();
 
-        // When & Then
         webTestClient.get()
                 .uri("/accounts/{id}", accountId)
                 .exchange()
@@ -264,7 +240,6 @@ class AccountControllerIT {
 
     @Test
     void getAccountsByUserId_shouldReturnUserAccounts() {
-        // Given - Create a user and accounts
         String userId = createTestUser();
         CreateAccountRequest request1 = new CreateAccountRequest(userId, "CHECKING", "USD");
         CreateAccountRequest request2 = new CreateAccountRequest(userId, "SAVINGS", "EUR");

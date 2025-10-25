@@ -32,4 +32,11 @@ public class AccountService {
     }
 
 
+    public Mono<Account> findById(String accountNumber) {
+        return accountRepository.findById(accountNumber);
+    }
+
+    public Flux<Account> findByUserId(String userId) {
+        return accountRepository.findByUserId(userId);
+    }
 }

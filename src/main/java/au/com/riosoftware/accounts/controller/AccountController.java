@@ -27,6 +27,16 @@ public class AccountController {
         return accountService.createAccount(accountRequest);
     }
 
+    @GetMapping(value = "/{accountNumber}")
+    public Mono<Account> findById(@PathVariable final String accountNumber) {
+        return accountService.findById(accountNumber);
+    }
+
+    @GetMapping(value = "/user/{userId}")
+    public Flux<Account> findByUserId(@PathVariable final String userId) {
+        return accountService.findByUserId(userId);
+    }
+
     @GetMapping
     public Flux<Account> findAll() {
         return accountService.findAll();
