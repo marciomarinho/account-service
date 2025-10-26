@@ -118,6 +118,9 @@ src/
 └── test/                       # Test classes
 ```
 
+## CI/CD Pipeline with Github Actions
+<img src="github_actions_cicd.png" alt="CI/CD Pipeline with Github Actions" width="800"/>
+
 ## Code Style
 
 This project follows the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) with some modifications:
